@@ -17,3 +17,29 @@ class Employee {
         console.log("Employee constructor");
     }
 }
+
+// method decorator
+
+function format() {
+    return function (target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        let originalMethod = descriptor.value;
+        descriptor.value = function () {
+            let result = originalMethod.apply(this);
+            return result.toUpperCase();
+        }
+        
+    }
+}
+
+
+class Greeter {
+    greeting: string;
+    constructor(message: string) {
+        this.greeting = message;
+    }
+
+    @format
+    greet() {
+        return "Hello, " + this.greeting;
+    }
+}

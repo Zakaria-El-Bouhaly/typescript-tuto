@@ -38,7 +38,7 @@ var __setFunctionName = (this && this.__setFunctionName) || function (f, name, p
     return Object.defineProperty(f, "name", { configurable: true, value: prefix ? "".concat(prefix, " ", name) : name });
 };
 // namespaces
-var calculator = new Calculator.BasicCalculator();
+// let calculator: Calculator.BasicCalculator = new Calculator.BasicCalculator();
 // //decorators
 function logged(constructor) {
     console.log(constructor);
@@ -63,4 +63,35 @@ var Employee = function () {
         __runInitializers(_classThis, _classExtraInitializers);
     })();
     return Employee = _classThis;
+}();
+// method decorator
+//Implement a method decorator @format that formats the return value of greet method as uppercase.
+function format(formatString) {
+    return function (target, propertyKey, descriptor) {
+        // get return value of greet method
+        var originalMethod = descriptor.value;
+        console.log("originalMethod", originalMethod);
+    };
+}
+var Greeter = function () {
+    var _a;
+    var _instanceExtraInitializers = [];
+    var _greet_decorators;
+    return _a = /** @class */ (function () {
+            function Greeter(message) {
+                this.greeting = __runInitializers(this, _instanceExtraInitializers);
+                this.greeting = message;
+            }
+            Greeter.prototype.greet = function () {
+                return "Hello, " + this.greeting;
+            };
+            return Greeter;
+        }()),
+        (function () {
+            var _metadata = typeof Symbol === "function" && Symbol.metadata ? Object.create(null) : void 0;
+            _greet_decorators = [format];
+            __esDecorate(_a, null, _greet_decorators, { kind: "method", name: "greet", static: false, private: false, access: { has: function (obj) { return "greet" in obj; }, get: function (obj) { return obj.greet; } }, metadata: _metadata }, null, _instanceExtraInitializers);
+            if (_metadata) Object.defineProperty(_a, Symbol.metadata, { enumerable: true, configurable: true, writable: true, value: _metadata });
+        })(),
+        _a;
 }();
